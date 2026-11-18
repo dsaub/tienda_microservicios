@@ -1,4 +1,4 @@
-package me.elordenador.tienda.auth.config;
+package me.elordenador.tienda.auth.security;
 
 import me.elordenador.tienda.auth.annotations.PublicEndpoint;
 import org.springframework.beans.factory.annotation.Qualifier;
