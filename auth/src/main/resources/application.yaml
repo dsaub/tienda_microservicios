@@ -1,6 +1,17 @@
 spring:
   application:
     name: auth
+  jpa:
+    hibernate:
+      ddl-auto: validate # Evita que Hibernate modifique tablas y deja el control a Flyway
+    open-in-view: false  # Quita el warning al arrancar y libera conexiones de MariaDB antes
+
+server:
+  tomcat:
+    accesslog:
+      rotate: false      # Evita el error "Permission denied" en /dev/stdout al rotar por fecha
+
 jwt:
-  secret: ${JWT_SECRET}
+  # El valor tras los dos puntos es solo un fallback por si ejecutas ./gradlew test en local sin exportar la variable
+  secret: ${JWT_SECRET:clave-secreta-local-de-desarrollo-minimo-32-chars}
   expiration: 86400000
