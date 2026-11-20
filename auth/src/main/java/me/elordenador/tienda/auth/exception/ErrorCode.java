@@ -21,7 +21,8 @@ public enum ErrorCode {
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED),
     EMAIL_ALREADY_EXISTS(HttpStatus.CONFLICT),
     USERNAME_ALREADY_EXISTS(HttpStatus.CONFLICT),
-    USER_DISABLED(HttpStatus.FORBIDDEN);
+    USER_DISABLED(HttpStatus.FORBIDDEN),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND);
 
     private final HttpStatus status;
 
