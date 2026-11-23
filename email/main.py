@@ -23,7 +23,7 @@ while True:
         continue
     full_message = r.hgetall(f"message:email: {message_info['id']}")
 
-    log.info(f"Processing message ID: {message_info['id']} from sender {message_info['sender_id']}")
+    log.info(f"Processing message ID: {message_info['id']} from sender {message_info['recipient_id']}")
 
     raw = {k.decode(): v.decode() for k, v in full_message.items()}
 
@@ -36,5 +36,5 @@ while True:
     )
 
     email = render(message, brand_name=settings.brand_name)
-    log.info("Renderd %s in %s: %r", message.type, email.locale, email.subject)
+    log.info("Rendered %s in %s: %r", message.type, email.locale, email.subject)
     
