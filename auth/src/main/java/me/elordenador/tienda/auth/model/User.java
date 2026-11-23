@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,8 +28,10 @@ public class User implements UserDetails {
     @Setter
     private String email;
 
+    private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+
     @Column(nullable = false)
-    @Getter @Setter
+    @Getter
     private String password;
 
     @Column(name = "password_version", nullable = false)
@@ -87,6 +91,16 @@ public class User implements UserDetails {
             authorities.add(new SimpleGrantedAuthority("ROLE_SELLER"));
         }
         return authorities;
+    }
+
+    /**
+     * Establece la contraseña del usuario cifrándola con BCrypt.
+     * Hibernate accede por campo, así que este método no se invoca al cargar desde la BD
+     * y el hash almacenado no se vuelve a cifrar.
+     * @param rawPassword Contraseña en texto plano.
+     */
+    public void setPassword(String rawPassword) {
+        this.password = PASSWORD_ENCODER.encode(rawPassword);
     }
 
     public void incrementPasswordVersion() {

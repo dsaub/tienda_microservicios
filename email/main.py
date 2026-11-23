@@ -27,6 +27,7 @@ while True:
     metadata = r.brpop('alarm_queue', timeout=15)
     if metadata is None:
         continue
+    log.info("Received new message, starting process")
     message_info = json.loads(metadata[1].decode('utf-8'))
     if message_info['type'] != "EMAIL":
         continue
