@@ -22,7 +22,7 @@ r = redis.Redis(
     socket_keepalive=True,
     health_check_interval=30
 )
-
+logging.info("Entering Worker Loop")
 while True:
     metadata = r.brpop('alarm_queue', timeout=15)
     if metadata is None:
