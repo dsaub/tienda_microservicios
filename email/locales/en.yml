@@ -1,0 +1,9 @@
+USER_CONFIRMATION:
+  subject: "Verify your account, {{ username }}"
+  preheader: "One click more to activate your account."
+  greeting: "Hello {{ username }}"
+  intro: "Thank you for registering on {{ brand_name }}. Confirm this email to verify your new account"
+  cta: "Validate account"
+  fallback_hint: "If the earlier button doesn't work, please copy and paste this in your browser:"
+  expiry: "The link expires in 24 hours."
+  footer: "If you didn't register, please ignore this email."

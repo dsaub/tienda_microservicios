@@ -1,0 +1,9 @@
+USER_CONFIRMATION:
+  subject: "Confirma tu cuenta, {{ username }}"
+  preheader: "Solo falta un clic para activar tu cuenta."
+  greeting: "Hola {{ username }}"
+  intro: "Gracias por registrarte en {{ brand_name }}. Confirma tu dirección de correo para activar tu cuenta."
+  cta: "Confirmar cuenta"
+  fallback_hint: "Si el boton no funciona, copia y pega este enlace en tu navegador:"
+  expiry: "El enlace caduca en 24 horas."
+  footer: "Si no te registraste, ignora este correo"

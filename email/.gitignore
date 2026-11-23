@@ -1,0 +1,33 @@
+# Entorno virtual y artefactos de Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Secretos y configuración local
+.env
+.env.*
+!.env.example
+
+# Caches y cobertura
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Logs
+*.log
+
+# Editores y sistema
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# NOTA: uv.lock SÍ se versiona (fija las dependencias del despliegue)

@@ -1,0 +1,38 @@
+# Entorno virtual y artefactos de Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Git y metadatos del repo
+.git/
+.gitignore
+.gitattributes
+.dockerignore
+Dockerfile
+
+# Documentación: no hace falta dentro de la imagen
+README.md
+docs/
+
+# Configuración local y secretos
+.env
+.env.*
+*.local
+
+# Editores
+.idea/
+.vscode/
+*.iml
+
+# Tests: no se necesitan en runtime
+tests/
