@@ -13,7 +13,11 @@ log = logging.getLogger(__name__)
 r = redis.Redis(
     host=settings.redis_host,
     port=settings.redis_port,
-    db=0
+    db=0,
+    socket_timeout=20,
+    socket_connect_timeout=5,
+    socket_keepalive=True,
+    health_check_interval=30
 )
 
 while True:
