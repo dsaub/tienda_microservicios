@@ -33,7 +33,6 @@ import me.elordenador.tienda.auth.exception.ErrorCode.Codes;
  *                 <li>{@code PASSWORD_TOO_SHORT}: Tiene menos de 8 o mas de 64 caracteres</li>
  *                 <li>{@code WEAK_PASSWORD}: La contraseña es debil</li>
  *                 </ul>
- * </p>
  */
 public record RegisterRequest(
         @NotBlank(message = Codes.REQUIRED_FULLNAME)

@@ -1,7 +1,10 @@
 package me.elordenador.tienda.auth.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.elordenador.tienda.auth.annotations.PublicEndpoint;
+import me.elordenador.tienda.auth.dtos.RegisterRequest;
+import me.elordenador.tienda.auth.dtos.RegisterStatus;
 import me.elordenador.tienda.auth.dtos.TokenDTO;
 import me.elordenador.tienda.auth.dtos.UserLoginDTO;
 import me.elordenador.tienda.auth.exception.ApiException;
@@ -23,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-class AuthController {
+public class AuthController {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
@@ -51,12 +54,25 @@ class AuthController {
         String token = jwtService.generateToken(user);
         return TokenDTO.builder().type("Bearer").token(token).build();
     }
-    /*
+
     @PublicEndpoint
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
+    public RegisterStatus register(@Valid @RequestBody RegisterRequest request) {
+        if (userRepository.existsByEmail(request.email())) {
+            throw new ApiException(ErrorCode.EMAIL_ALREADY_EXISTS);
+        }
+        if (userRepository.existsByUsername(request.username())) {
+            throw new ApiException(ErrorCode.USERNAME_ALREADY_EXISTS);
+        }
 
+        User user = new User();
+        user.setUsername(request.username());
+        user.setPassword(request.password());
+        user.setEmail(request.email());
+        user.setFullname(request.full_name());
+        user.setEnabled(true);
+        userRepository.save(user);
+        return new RegisterStatus(user.getUsername(), "ACTIVE");
     }
 
-     */
 }
