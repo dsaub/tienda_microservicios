@@ -1,0 +1,2 @@
+ALTER TABLE users
+ADD column locale VARCHAR(10) NOT NULL DEFAULT 'en_GB';

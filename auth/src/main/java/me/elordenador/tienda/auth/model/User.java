@@ -62,6 +62,10 @@ public class User implements UserDetails {
     @Getter
     private LocalDateTime updatedAt;
 
+    @Column(nullable = false)
+    @Getter @Setter
+    private String locale = "en_GB";
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
