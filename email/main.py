@@ -17,7 +17,9 @@ r = redis.Redis(
 )
 
 while True:
-    metadata = r.brpop('alarm_queue')
+    metadata = r.brpop('alarm_queue', timeout=15)
+    if metadata is None:
+        continue
     message_info = json.loads(metadata[1].decode('utf-8'))
     if message_info['type'] != "EMAIL":
         continue
