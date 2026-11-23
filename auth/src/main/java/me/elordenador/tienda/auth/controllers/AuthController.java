@@ -12,6 +12,7 @@ import me.elordenador.tienda.auth.exception.ErrorCode;
 import me.elordenador.tienda.auth.model.User;
 import me.elordenador.tienda.auth.repository.UserRepository;
 import me.elordenador.tienda.auth.security.JwtService;
+import me.elordenador.tienda.auth.services.EmailService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,7 @@ public class AuthController {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     /**
      * Metodo para iniciar sesión
@@ -72,7 +74,8 @@ public class AuthController {
         user.setFullname(request.full_name());
         user.setEnabled(true);
         userRepository.save(user);
-        return new RegisterStatus(user.getUsername(), "ACTIVE");
+        emailService.sendConfirmationEmail(user);
+        return new RegisterStatus(user.getUsername(), "PENDING");
     }
 
 }
