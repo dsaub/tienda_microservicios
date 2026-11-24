@@ -25,7 +25,7 @@ public class SecurityConfig {
             @Qualifier("requestMappingHandlerMapping")RequestMappingHandlerMapping mapping,
             JwtAuthenticationFilter jwtFilter
     ) throws Exception {
-        List<String> publicPaths = new ArrayList<>(List.of("/actuator/health/**"));
+        List<String> publicPaths = new ArrayList<>(List.of("/actuator/health/**", "/error"));
         mapping.getHandlerMethods().forEach((info, handlerMethod) -> {
             boolean isPublic = handlerMethod.hasMethodAnnotation(PublicEndpoint.class)
                     || handlerMethod.getBeanType().isAnnotationPresent(PublicEndpoint.class);
