@@ -4,7 +4,7 @@ from models import EmailMessage
 from renderer import render
 from settings import settings
 import logging
-
+from .email import send_email
 from jinja2 import Environment
 if settings.debug:
     logging.basicConfig(
@@ -56,4 +56,4 @@ while True:
     log.debug("Message: %s", message.model_dump(mode="json"))
     email = render(message, brand_name=settings.brand_name)
     log.info("Rendered %s in %s: %r", message.type, email.locale, email.subject)
-    
+    send_email(message.variables["email"], email.subject, email.html, email.text)
