@@ -19,7 +19,8 @@ public class EmailService {
         String confirmUrl = buildConfirmUrl(user);
         Map<String, String> variables = Map.of(
                 "username", user.getUsername(),
-                "confirm_url", confirmUrl
+                "confirm_url", confirmUrl,
+                "email", user.getEmail()
         );
 
         String variablesJson;
