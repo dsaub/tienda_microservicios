@@ -4,7 +4,7 @@ from models import EmailMessage
 from renderer import render
 from settings import settings
 import logging
-from .email import send_email
+from .mailing import send_email
 from jinja2 import Environment
 if settings.debug:
     logging.basicConfig(
