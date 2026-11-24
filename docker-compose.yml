@@ -1,0 +1,45 @@
+services:
+  redis:
+    image: redis:8.12-alpine
+  email:
+    image: ghcr.io/dsaub/tienda_microservicios/email-service:latest
+    environment:
+      REDIS_HOST: redis
+      BRAND_NAME: MicroStore
+    depends_on:
+      - redis
+  auth:
+    image: ghcr.io/dsaub/tienda_microservicios/auth-service:latest
+    env_file: .env/auth.env
+    depends_on:
+      redis:
+        condition: service_started
+      mariadb:
+        condition: service_healthy
+    networks:
+      - default
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tienda-auth.rule=Host(`tienda.localhost`) && PathPrefix(`/api/auth`)"
+      - "traefik.http.routers.tienda-auth.entrypoints=web"
+      - "traefik.docker.network=web"
+  mariadb:
+    image: mariadb:13
+    env_file: .env/mariadb.env
+    volumes:
+      - "db:/var/lib/mysql"
+      - "./databases.sql:/docker-entrypoint-initdb.d/01-databases.sql:ro"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+volumes:
+  db:
+networks:
+  web:
+    name: web
+    external: true
