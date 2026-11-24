@@ -1,5 +1,5 @@
 from smtplib import SMTP, SMTP_SSL
-from .settings import settings
+from settings import settings
 import logging
 import ssl
 from email.message import EmailMessage
