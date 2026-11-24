@@ -3,9 +3,7 @@ services:
     image: redis:8.12-alpine
   email:
     image: ghcr.io/dsaub/tienda_microservicios/email-service:latest
-    environment:
-      REDIS_HOST: redis
-      BRAND_NAME: MicroStore
+    env_file: .env/email.env
     depends_on:
       - redis
   auth:
